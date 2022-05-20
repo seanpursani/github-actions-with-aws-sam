@@ -18,6 +18,9 @@ jobs:
       - run: sam build --use-container
 
 # Run Unit tests- Specify unit tests here 
+      - name: Test with pytest
+        run: |
+          pytest
 
 # sam deploy
       - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name sam-hello-world --s3-bucket github-actions-with-aws-sam-test --capabilities CAPABILITY_IAM --region us-east-1
