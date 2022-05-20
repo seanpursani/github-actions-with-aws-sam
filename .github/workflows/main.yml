@@ -17,7 +17,7 @@ jobs:
       # sam build 
       - run: sam build --use-container
 
-# Run Unit tests- Specify unit tests here 
+# Run Unit tests
 - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
