@@ -2,7 +2,7 @@
 
 from unittest import TestCase
 
-class TryTesting(TestCase):
+class TestTesting(TestCase):
     def test_always_passes(self):
         self.assertTrue(True)
 
