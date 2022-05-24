@@ -1,29 +1,35 @@
-# import the json utility package since we will be working with a JSON object
 import json
-# import the AWS SDK (for Python the package name is boto3)
-import boto3
-# import two packages to help us with dates and date formatting
-from time import gmtime, strftime
 
-# create a DynamoDB object using the AWS SDK
-dynamodb = boto3.resource('dynamodb')
-# use the DynamoDB object to select our table
-table = dynamodb.Table('HelloWorldDatabase')
-# store the current time in a human readable format in a variable
-now = strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
-
-# define the handler function that the Lambda service will use as an entry point
 def lambda_handler(event, context):
-# extract values from the event object we got from the Lambda service and store in a variable
-    name = event['firstName'] +' '+ event['lastName']
-# write name and time to the DynamoDB table using the object we instantiated and save response in a variable
-    response = table.put_item(
-        Item={
-            'ID': name,
-            'LatestGreetingTime':now
-            })
-# return a properly formatted JSON object
+    """Sample pure Lambda function
+    Parameters
+    ----------
+    event: dict, required
+        API Gateway Lambda Proxy Input Format
+        Event doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html#api-gateway-simple-proxy-for-lambda-input-format
+    context: object, required
+        Lambda Context runtime methods and attributes
+        Context doc: https://docs.aws.amazon.com/lambda/latest/dg/python-context-object.html
+    Returns
+    ------
+    API Gateway Lambda Proxy Output Format: dict
+        Return doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html
+    """
+
+    # try:
+    #     ip = requests.get("http://checkip.amazonaws.com/")
+    # except requests.RequestException as e:
+    #     # Send some context about this error to Lambda Logs
+    #     print(e)
+
+    #     raise e
+
     return {
-        'statusCode': 200,
-        'body': json.dumps('Hello from Lambda, ' + name)
+        "statusCode": 200,
+        "body": json.dumps(
+            {
+                "message": "hello world",
+                # "location": ip.text.replace("\n", "")
+            }
+        ),
     }
